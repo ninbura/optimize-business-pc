@@ -5,14 +5,6 @@ function quit(){
   exit
 }
 
-function enableRunningPowerShellScripts(){
-  Write-Host "Enabling the ability to run powershell scripts...`n"
-  
-  set-executionpolicy remotesigned
-
-  Write-Host "Ability to run powershell scripts has been enabled.`n" -ForegroundColor Green
-}
-
 function getScriptPath(){
   $relativePath = $(Split-Path $PSScriptRoot -Parent)
   $scriptPath = "$relativePath/scripts/optimize-business-pc.ps1"
@@ -29,7 +21,6 @@ function registerScheduledTask($scriptPath){
 }
 
 function main(){
-  enableRunningPowerShellScripts
   $scriptPath = getScriptPath $scriptPath
   runScript $scriptPath
   registerScheduledTask $scriptPath

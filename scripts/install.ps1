@@ -31,6 +31,7 @@ function registerScheduledTask($scriptPath){
 function main(){
   enableRunningPowerShellScripts
   $scriptPath = getScriptPath $scriptPath
+  runScript $scriptPath
   registerScheduledTask $scriptPath
   
   quit

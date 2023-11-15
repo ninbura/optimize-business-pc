@@ -32,9 +32,9 @@ for the script to run at login, you must place a properly formatted `config.json
 
 # prerequisites
 - powershell 7 must be installed for this program to function
-- if you don't already have powershell 7 install it with the following command in powershell or cmd
+- install powershell 7 by using the following commmand in powershell or cmd
   - `winget install microsoft.powershell`
-- before the included script can execute at login, you must first enable running scripts on your pc
+- before the included script can execute at login, you must first enable running scripts on your pc.
 - run the following command in an *admin elevated* instance of powershell
   - `set-executionpolicy remotesigned`
 

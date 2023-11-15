@@ -1,1 +1,1 @@
-Unregister-ScheduledTask -TaskName "optimize-business-laptop" -Confirm:$false
+Unregister-ScheduledTask -TaskName "optimize-business-pc" -Confirm:$false

@@ -16,7 +16,7 @@ if %errorLevel% == 0 (
 
 set relativePath=%~dp0
 
-echo "%relativePath%install.ps1"
+echo "%relativePath%scripts\install.ps1"
 
 pwsh -NoProfile -ExecutionPolicy Bypass -File "%relativePath%scripts\install.ps1"
 

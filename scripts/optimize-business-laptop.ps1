@@ -1,5 +1,15 @@
+param(
+  [string]$testRelativePath = "c:\repos\optimize-business-pc"
+)
+
 function startUp(){
   Write-Host "Starting program...`n"
+}
+
+function getRelativePath(){
+  $relativePath = $(Split-Path $PSScriptRoot -Parent)?.Parent
+
+  return $null -eq $relativePath ? $testRelativePath : $relativePath
 }
 
 function deleteRegistryValues($deleteUnwantedRegistryValues){
@@ -142,12 +152,27 @@ function unpinUnwantedAppsFromTaskbar($unpinUnwantedAppsFromTaskbar, $unpinApps)
   Write-Host "Unwanted apps have been unpinned from the taskbar.`n" -ForegroundColor Green
 }
 
+function writeToLog($relativePath){
+  $logPath = "$relativePath/optimize-business-pc.log"
+
+  if(!(test-path $logPath)){
+    New-Item -Path $logPath -ItemType File -Force -Verbose
+  }
+
+  $date = Get-Date -Format "yyyy/MM/dd HH:mm:ss"
+  $logEntry = "[$date] - Script has run successfully.`n"
+
+  Add-Content -Path $logPath -Value $logEntry -Verbose
+}
+
 function main(){
   startup
-  $config = Get-Content -Path "config.json" -Raw | ConvertFrom-Json
+  $relativePath = getRelativePath
+  $config = Get-Content -Path "$relativePath/config.json" -Raw | ConvertFrom-Json
   deleteRegistryValues $config.deleteUnwantedRegistryValues
   createRegistryValues $config.createRegistryValues
   unpinUnwantedAppsFromTaskbar $config.unpinUnwantedAppsFromTaskbar $config.unpinApps
+  writeToLog $relativePath
 }
 
 main

@@ -32,6 +32,8 @@ for the script to run at login, you must place a properly formatted `config.json
 
 # usage
 
+- before running the below `.bat` files, please run the following command in an admin elevated powershell
+  - ```powershell set-executionpolicy remotesigned```
 - installation - right click `.install.bat` & run as admin
 - run manually - right click `.run-manually.bat` & run as admin
 - uninstallation - right click `.uninstall.bat` & run as admin

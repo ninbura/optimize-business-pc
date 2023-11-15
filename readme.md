@@ -30,10 +30,16 @@ for the script to run at login, you must place a properly formatted `config.json
 - unpinUnwantedAppsFromTaskbar - unpins specified apps from taskbar at login.
 - unpinApps - an array of the apps you'd like to be unpinned from your taskbar.
 
+# prerequisites
+- powershell 7 must be installed for this program to function
+- if you don't already have powershell 7 install it with the following command in powershell or cmd
+  - `winget install microsoft.powershell`
+- before the included script can execute at login, you must first enable running scripts on your pc
+- run the following command in an *admin elevated* instance of powershell
+  - `set-executionpolicy remotesigned`
+
 # usage
 
-- before running the below `.bat` files, please run the following command in an admin elevated powershell
-  - ```powershell set-executionpolicy remotesigned```
 - installation - right click `.install.bat` & run as admin
 - run manually - right click `.run-manually.bat` & run as admin
 - uninstallation - right click `.uninstall.bat` & run as admin

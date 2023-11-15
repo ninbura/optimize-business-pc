@@ -28,7 +28,6 @@ function deleteRegistryValues($deleteUnwantedRegistryValues){
     "HKCU:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies",
     "HKCU:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate"
     "HKCU:\Software\Microsoft\WindowsUpdate"
-    # "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" # for testing purposes
   )
 
   Write-Host "Deleting unwanted registry values..." -ForegroundColor Cyan
@@ -143,23 +142,12 @@ function unpinUnwantedAppsFromTaskbar($unpinUnwantedAppsFromTaskbar, $unpinApps)
   Write-Host "Unwanted apps have been unpinned from the taskbar.`n" -ForegroundColor Green
 }
 
-# function restartExplorer(){
-#   Write-Host "Restarting explorer.exe..." -ForegroundColor Cyan
-
-#   Stop-Process -Name explorer -Force -Verbose
-#   Start-Process -FilePath explorer -Verbose
-
-#   Write-Host "Explorer.exe has been restarted.`n" -ForegroundColor Green
-
-# }
-
 function main(){
   startup
   $config = Get-Content -Path "config.json" -Raw | ConvertFrom-Json
   deleteRegistryValues $config.deleteUnwantedRegistryValues
   createRegistryValues $config.createRegistryValues
   unpinUnwantedAppsFromTaskbar $config.unpinUnwantedAppsFromTaskbar $config.unpinApps
-  # restartExplorer
 }
 
 main

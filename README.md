@@ -8,15 +8,8 @@ for the script to run at login, you must place a properly formatted `config.json
   "deleteUnwantedRegistryValues": true,
   "createRegistryValues": true,
   "unpinUnwantedAppsFromTaskbar": true,
-  "unpinApps": [
-    "Microsoft Edge",
-    "Google Chrome",
-    "Outlook",
-    "Excel",
-    "Word",
-    "Company Portal",
-    "Quick Assist"
-  ]
+  "unpinApps": ["Microsoft Edge", "Google Chrome", "Outlook", "Excel", "Word"],
+  "unpinSpecialtyApps": ["Company Portal", "Quick Assist"]
 }
 ```
 ### description of options

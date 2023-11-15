@@ -1,27 +1,10 @@
-param (
-  [boolean]$deleteUnwantedRegistryValues = $true,
-  [boolean]$createRegistryValues = $true,
-  [boolean]$unpinUnwantedAppsFromTaskbar = $true,
-  [array]$unpinApps = @(
-    "Google Chrome.lnk"
-    "C:\Users\GJBalaich\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\Microsoft Edge.lnk"
-  )
-)
-
-function quit(){
-  write-host('Closing program, press [Enter] to exit...') -NoNewLine
-  $Host.UI.ReadLine()
-
-  exit
-}
-
 function startUp(){
   Write-Host "Starting program...`n"
 }
 
-function deleteRegistryValues(){
+function deleteRegistryValues($deleteUnwantedRegistryValues){
   if($deleteUnwantedRegistryValues -eq $false){
-    Write-Host "Skipping deletion of unwanted registry values per your parameters...`n" -ForegroundColor Magenta
+    Write-Host "Skipping deletion of unwanted registry values per your parameters...`n" -ForegroundColor Yellow
 
     return
   }
@@ -45,6 +28,7 @@ function deleteRegistryValues(){
     "HKCU:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies",
     "HKCU:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate"
     "HKCU:\Software\Microsoft\WindowsUpdate"
+    # "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" # for testing purposes
   )
 
   Write-Host "Deleting unwanted registry values..." -ForegroundColor Cyan
@@ -64,9 +48,9 @@ function deleteRegistryValues(){
   Write-Host "Unwanted registry values have been deleted.`n" -ForegroundColor Green
 }
 
-function createRegistryValues(){
+function createRegistryValues($createRegistryValues){
   if($createRegistryValues -eq $false){
-    Write-Host "Skipping creation of registry values per your parameters...`n"  -ForegroundColor Magenta
+    Write-Host "Skipping creation of registry values per your parameters...`n"  -ForegroundColor Yellow
 
     return
   }
@@ -128,9 +112,9 @@ function createRegistryValues(){
   Write-Host "Registry values have been created.`n" -ForegroundColor Green
 }
 
-function unpinUnwantedAppsFromTaskbar(){
+function unpinUnwantedAppsFromTaskbar($unpinUnwantedAppsFromTaskbar, $unpinApps){
   if($unpinUnwantedAppsFromTaskbar -eq $false){
-    Write-Host "Skipping unpinning of unwanted apps from the taskbar per your parameters...`n" -ForegroundColor Magenta
+    Write-Host "Skipping unpinning of unwanted apps from the taskbar per your parameters...`n" -ForegroundColor Yellow
 
     return
   }
@@ -140,19 +124,42 @@ function unpinUnwantedAppsFromTaskbar(){
   Write-Host "Unpinning unwanted apps from the taskbar..." -ForegroundColor Cyan
 
   foreach ($unpinApp in $unpinApps){
-    if(Test-Path "$pinnedAppsPath\$unpinApp"){
-      Remove-Item -Path "$pinnedAppsPath\$unpinApp" -Force -Verbose
+    if(Test-Path "$pinnedAppsPath\$unpinApp.lnk"){
+      Remove-Item -Path "$pinnedAppsPath\$unpinApp.lnk" -Force -Verbose
+    }
+
+    try{
+      ((New-Object -Com Shell.Application).NameSpace('shell:::{4234d49b-0245-4df3-b780-3893943456e1}').Items() | `
+        Where-Object {$_.Name -eq $unpinApp}).Verbs() | `
+        Where-Object {$_.Name.replace('&','') -match 'Unpin from taskbar'} | `
+        ForEach-Object {$_.DoIt()}
+    
+      Write-Host "App '$unpinApp' has been unpinned from the taskbar." -ForegroundColor Magenta
+    } catch {
+      Write-Host "App '$unpinApp' could not be unpinned from the taskbar." -ForegroundColor Red
     }
   }
+
+  Write-Host "Unwanted apps have been unpinned from the taskbar.`n" -ForegroundColor Green
 }
+
+# function restartExplorer(){
+#   Write-Host "Restarting explorer.exe..." -ForegroundColor Cyan
+
+#   Stop-Process -Name explorer -Force -Verbose
+#   Start-Process -FilePath explorer -Verbose
+
+#   Write-Host "Explorer.exe has been restarted.`n" -ForegroundColor Green
+
+# }
 
 function main(){
   startup
-  deleteRegistryValues
-  createRegistryValues
-  unpinUnwantedAppsFromTaskbar
-
-  quit
+  $config = Get-Content -Path "config.json" -Raw | ConvertFrom-Json
+  deleteRegistryValues $config.deleteUnwantedRegistryValues
+  createRegistryValues $config.createRegistryValues
+  unpinUnwantedAppsFromTaskbar $config.unpinUnwantedAppsFromTaskbar $config.unpinApps
+  # restartExplorer
 }
 
-Write-Host "Unpinning unwanted apps from the taskbar..."
+main

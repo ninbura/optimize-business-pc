@@ -17,7 +17,7 @@ function runScript($scriptPath){
 }
 
 function registerScheduledTask($scriptPath){
-  Register-ScheduledTask -TaskName "optimize-business-pc" -Trigger (New-ScheduledTaskTrigger -AtLogon) -Action (New-ScheduledTaskAction -Execute "pwsh" -Argument "-WindowStyle Hidden -Command `'& `"$scriptPath`"`'") -RunLevel Highest -Force;
+  Register-ScheduledTask -TaskName "optimize-business-pc" -Trigger (New-ScheduledTaskTrigger -AtLogon) -Action (New-ScheduledTaskAction -Execute "pwsh" -Argument "-WindowStyle Hidden -Command `"& `"$scriptPath`"`"") -RunLevel Highest -Force;
 }
 
 function main(){

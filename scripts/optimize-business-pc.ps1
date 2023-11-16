@@ -2,14 +2,31 @@ param(
   [string]$testRelativePath = "c:\repos\optimize-business-pc"
 )
 
+function quit(){
+  write-host('closing program, press [enter] to exit...') -NoNewLine
+  $Host.UI.ReadLine()
+
+  exit
+}
+
 function startUp(){
   Write-Host "Starting program...`n"
 }
 
 function getRelativePath(){
-  $relativePath = $(Split-Path $PSScriptRoot -Parent)?.Parent
+  try{
+    $relativePath = $(Split-Path $PSScriptRoot -Parent)
 
-  return $null -eq $relativePath ? $testRelativePath : $relativePath
+    if($null -eq $relativePath){
+      throw "Could not get relative path."
+    }
+  } catch {
+    $relativePath = $testRelativePath
+  }
+
+  write-host "$relativePath" -ForegroundColor Red
+
+  return $relativePath
 }
 
 function deleteRegistryValues($deleteUnwantedRegistryValues){

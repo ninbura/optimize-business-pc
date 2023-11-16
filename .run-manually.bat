@@ -16,8 +16,8 @@ if %errorLevel% == 0 (
 
 set relativePath=%~dp0
 
-echo "%relativePath%scripts\optimize-business-pc.ps1"
+echo "%relativePath%scripts\run-manually.ps1"
 
-pwsh -NoProfile -ExecutionPolicy Bypass -File "%relativePath%scripts\optimize-business-pc.ps1"
+pwsh -NoProfile -ExecutionPolicy Bypass -File "%relativePath%scripts\run-manually.ps1"
 
 exit

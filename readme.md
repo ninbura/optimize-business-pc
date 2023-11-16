@@ -1,6 +1,6 @@
 # summary
 
-attemps to remove locks, disables admin popup windows, and unpins unwanted apps from your taskbar at login.
+attemps to allow modification of some system options, disables admin popup windows, and unpins unwanted apps from your taskbar at login.
 
 # prerequisites
 - powershell 7 must be installed for this program to function

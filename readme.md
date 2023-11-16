@@ -33,7 +33,7 @@ for the script to run at login, you must place a properly formatted `config.json
 
 ### description of options
 
-- deleteUnwantedRegistryValues - deletes registry values tat prevent you from accessing certain windows options.
+- deleteUnwantedRegistryValues - deletes registry values that prevent you from accessing certain windows options.
 - createRegistryValues - creates registry values that allow you to update your computer, and disable admin requesting popups.
 - unpinUnwantedAppsFromTaskbar - unpins specified apps from taskbar at login.
 - unpinApps - an array of the apps you'd like to be unpinned from your taskbar.

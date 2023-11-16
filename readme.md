@@ -1,6 +1,6 @@
 # summary
 
-attemps to remove minor org locks, disables admin popup windows, and unpins unwanted apps from your taskbar at login.
+attemps to remove locks, disables admin popup windows, and unpins unwanted apps from your taskbar at login.
 
 # configuration example
 

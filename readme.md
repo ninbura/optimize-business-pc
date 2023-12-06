@@ -1,23 +1,22 @@
 # summary
 
-attemps to remove locks, disables admin popup windows, and unpins unwanted apps from your taskbar at login.
+Unpins unwanted apps from your taskbar at login.
 
 # prerequisites
-- powershell 7 must be installed for this program to function
-- install powershell 7 by using the following commmand in powershell or cmd
+
+- PowerShell 7 must be installed for this program to function
+- Install PowerShell 7 by using the following commmand in powershell or cmd
   - `winget install microsoft.powershell`
-- before the included script can execute at login, you must first enable running scripts on your pc.
-- run the following command in an *admin elevated* instance of powershell
+- Before the included script can execute at login, you must first enable running scripts on your pc.
+- Run the following command in an _admin elevated_ instance of powershell
   - `set-executionpolicy remotesigned`
 
 # configuration example
 
-for the script to run at login, you must place a properly formatted `config.json` file in root of this repository/directory. bleow is an example of what `config.json` should contain.
+For the script to run at login, you must place a properly formatted `config.json` file in root of this repository/directory. Below is an example of what `config.json` should contain.
 
 ```json
 {
-  "deleteUnwantedRegistryValues": true,
-  "createRegistryValues": true,
   "unpinUnwantedAppsFromTaskbar": true,
   "unpinApps": [
     "Microsoft Edge",
@@ -33,8 +32,6 @@ for the script to run at login, you must place a properly formatted `config.json
 
 ### description of options
 
-- deleteUnwantedRegistryValues - deletes registry values that prevent you from updating windows, controlling power options, among other minor orginaztion locks.
-- createRegistryValues - creates registry values that allow you to update your computer, and disable admin requesting popups.
 - unpinUnwantedAppsFromTaskbar - unpins specified apps from taskbar at login.
 - unpinApps - an array of the apps you'd like to be unpinned from your taskbar.
 

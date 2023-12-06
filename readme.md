@@ -37,7 +37,7 @@ For the script to run at login, you must place a properly formatted `config.json
 
 # usage
 
-- installation - right click `.install.bat` & run as admin
-- run manually - right click `.run-manually.bat` & run as admin
-- uninstallation - right click `.uninstall.bat` & run as admin
-- note that if you remove or move the folder containing these files you'll need to run `.uninstall.bat` and then `.install.bat` again.
+- Installation - right click `.install.bat` & run as admin
+- Run manually - right click `.run-manually.bat` & run as admin
+- Uninstallation - right click `.uninstall.bat` & run as admin
+- Note that if you remove or move the folder containing these files you'll need to run `.uninstall.bat` and then `.install.bat` again.
